@@ -153,15 +153,13 @@ function printPost(object){
     `;
     container.append(post);
 }
-
-
 // prendo btn mi piace per on click
 const btnsLikes = document.querySelectorAll('a.js-like-button');
 
 // preparo array vuoto per mettere dentro id dei post piaciuti
 const likedPostsArray = [];
 
-// al click di ciascuno cambio classe colore e aumento il numero dei likes 
+// al click di ciascun Mi Piace cambio classe colore e aumento il numero dei likes 
 for(let element of btnsLikes){
     element.addEventListener('click', clickOnLike);
 }
@@ -170,23 +168,22 @@ function clickOnLike(){
     let likesCounter = document.getElementById(`like-counter-${this.dataset.postid}`)
     let likesCounterInnerHtml = parseInt(likesCounter.innerHTML);
     console.log(likesCounterInnerHtml)
+    // prendo id da pushare in/rimuovere da nuovo array
+    let likedPost = this.dataset.postid;
+    // condizioni
     if(!this.classList.contains('like-button--liked')){
         this.classList.add('like-button--liked');
         likesCounterInnerHtml += 1;
         likesCounter.innerHTML = likesCounterInnerHtml;
-        // prendo id da pushare nel nuovo array
-        let likedPost = this.dataset.postid;
+        // pusho id liked post
         likedPostsArray.push(likedPost);
-        // console.log(likedPost)
     }else {
         this.classList.remove('like-button--liked');
         likesCounterInnerHtml = likesCounterInnerHtml - 1;
         likesCounter.innerHTML = likesCounterInnerHtml;
-        // tolgo id post non più piaciuto
-        let likedPost = this.dataset.postid;
+        // tolgo id disliked post
         let dislikedPost = likedPostsArray.indexOf(likedPost);
         likedPostsArray.splice(dislikedPost, 1);
-        // console.log(dislikedPost)
     }
     console.log(likesCounterInnerHtml);
     console.log(likedPostsArray);

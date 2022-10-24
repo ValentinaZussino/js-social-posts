@@ -138,7 +138,7 @@ function printPost(object){
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#nogo" data-postid="${object.id}">
+                <a class="like-button js-like-button" href="#nogo" data-postid="${object.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -157,12 +157,10 @@ function printPost(object){
 const btnsLikes = document.querySelectorAll('a.js-like-button');
 // prendo il counter dei i likes
 let likesCounter = document.getElementsByClassName('js-likes-counter');
- let likesCounterInnerHtml = parseInt(likesCounter.item(0).innerHTML); //adesso solo per il primo ma da sistemare per tutti
+let likesCounterInnerHtml = parseInt(likesCounter.item(0).innerHTML); //adesso solo per il primo ma da sistemare per tutti
 console.log(likesCounterInnerHtml)
 // preparo array vuoto per mettere dentro id dei post piaciuti
-const likedPosts = [];
-// prendo gli id
-
+const likedPostsArray = [];
 
 // al click di ciascuno cambio classe colore e aumento il numero dei likes 
 for(let element of btnsLikes){
@@ -173,11 +171,15 @@ function clickOnLike(){
         this.classList.add('like-button--liked');
         likesCounterInnerHtml += 1;
         likesCounter.item(0).innerHTML = likesCounterInnerHtml;
+        // prendo id da pushare nel nuovo array
+        let likedPost = this.dataset.postid;
+        likedPostsArray.push(likedPost);
+        console.log(likedPost)
     }else {
         this.classList.remove('like-button--liked');
         likesCounterInnerHtml = likesCounterInnerHtml - 1;
-        likesCounter.item(0).innerHTML = likesCounterInnerHtml;   
+        likesCounter.item(0).innerHTML = likesCounterInnerHtml;
     }
     console.log(likesCounterInnerHtml);
+    console.log(likedPostsArray);
 }
-//aggiungere sempre al click il salvataggio id post piaciuti in array nuovo

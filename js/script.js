@@ -23,7 +23,7 @@
 // > console.log() è nostro amico.
 // > Quando un pezzo di codice funziona, chiediamoci se possiamo scomporlo in funzioni più piccole.
 
-{/* <div class="post">
+/* <div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
                     <div class="post-meta__icon">
@@ -52,7 +52,7 @@
                     </div>
                 </div> 
             </div>            
-        </div> */}
+        </div> */
 
 const posts = [
     {
@@ -138,16 +138,46 @@ function printPost(object){
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
+                <a class="like-button  js-like-button" href="#nogo" data-postid="${object.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${object.likes}</b> persone
+                Piace a <b id="like-counter-${object.id}" class="js-likes-counter">${object.likes}</b> persone
             </div>
         </div> 
     </div>
     `;
     container.append(post);
 }
+
+
+// prendo btn mi piace per on click
+const btnsLikes = document.querySelectorAll('a.js-like-button');
+// prendo il counter dei i likes
+let likesCounter = document.getElementsByClassName('js-likes-counter');
+ let likesCounterInnerHtml = parseInt(likesCounter.item(0).innerHTML); //adesso solo per il primo ma da sistemare per tutti
+console.log(likesCounterInnerHtml)
+// preparo array vuoto per mettere dentro id dei post piaciuti
+const likedPosts = [];
+// prendo gli id
+
+
+// al click di ciascuno cambio classe colore e aumento il numero dei likes 
+for(let element of btnsLikes){
+    element.addEventListener('click', clickOnLike);
+}
+function clickOnLike(){
+    if(!this.classList.contains('like-button--liked')){
+        this.classList.add('like-button--liked');
+        likesCounterInnerHtml += 1;
+        likesCounter.item(0).innerHTML = likesCounterInnerHtml;
+    }else {
+        this.classList.remove('like-button--liked');
+        likesCounterInnerHtml = likesCounterInnerHtml - 1;
+        likesCounter.item(0).innerHTML = likesCounterInnerHtml;   
+    }
+    console.log(likesCounterInnerHtml);
+}
+//aggiungere sempre al click il salvataggio id post piaciuti in array nuovo

@@ -54,6 +54,8 @@
             </div>            
         </div> */
 
+"use strict"
+
 const posts = [
     {
         "id": 1,
@@ -174,11 +176,16 @@ function clickOnLike(){
         // prendo id da pushare nel nuovo array
         let likedPost = this.dataset.postid;
         likedPostsArray.push(likedPost);
-        console.log(likedPost)
+        // console.log(likedPost)
     }else {
         this.classList.remove('like-button--liked');
         likesCounterInnerHtml = likesCounterInnerHtml - 1;
         likesCounter.item(0).innerHTML = likesCounterInnerHtml;
+        // tolgo id post non più piaciuto
+        let likedPost = this.dataset.postid;
+        let dislikedPost = likedPostsArray.indexOf(likedPost);
+        likedPostsArray.splice(dislikedPost, 1);
+        // console.log(dislikedPost)
     }
     console.log(likesCounterInnerHtml);
     console.log(likedPostsArray);

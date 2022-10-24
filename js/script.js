@@ -157,10 +157,7 @@ function printPost(object){
 
 // prendo btn mi piace per on click
 const btnsLikes = document.querySelectorAll('a.js-like-button');
-// prendo il counter dei i likes
-let likesCounter = document.getElementsByClassName('js-likes-counter');
-let likesCounterInnerHtml = parseInt(likesCounter.item(0).innerHTML); //adesso solo per il primo ma da sistemare per tutti
-console.log(likesCounterInnerHtml)
+
 // preparo array vuoto per mettere dentro id dei post piaciuti
 const likedPostsArray = [];
 
@@ -169,10 +166,14 @@ for(let element of btnsLikes){
     element.addEventListener('click', clickOnLike);
 }
 function clickOnLike(){
+    // prendo il counter dei i likes
+    let likesCounter = document.getElementById(`like-counter-${this.dataset.postid}`)
+    let likesCounterInnerHtml = parseInt(likesCounter.innerHTML);
+    console.log(likesCounterInnerHtml)
     if(!this.classList.contains('like-button--liked')){
         this.classList.add('like-button--liked');
         likesCounterInnerHtml += 1;
-        likesCounter.item(0).innerHTML = likesCounterInnerHtml;
+        likesCounter.innerHTML = likesCounterInnerHtml;
         // prendo id da pushare nel nuovo array
         let likedPost = this.dataset.postid;
         likedPostsArray.push(likedPost);
@@ -180,7 +181,7 @@ function clickOnLike(){
     }else {
         this.classList.remove('like-button--liked');
         likesCounterInnerHtml = likesCounterInnerHtml - 1;
-        likesCounter.item(0).innerHTML = likesCounterInnerHtml;
+        likesCounter.innerHTML = likesCounterInnerHtml;
         // tolgo id post non più piaciuto
         let likedPost = this.dataset.postid;
         let dislikedPost = likedPostsArray.indexOf(likedPost);
